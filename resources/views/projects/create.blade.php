@@ -1,29 +1,33 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>BirdBoard App</title>
-</head>
-<body>
-    <h1>Create a Project</h1>
+@extends ('layouts.app')
+
+@section ('content')
 
     <form method="post" action="/projects">
         @csrf
 
-        <div>
-            <label for="title">Title</label>
+        <h1 class="heading is-1">Create a Project</h1>
 
-            <input type="text" name="title" placeholder="Title">
+        <div class="field">
+            <label class="label" for="title">Title</label>
+
+            <div class="control">
+                <input type="text" name="title" placeholder="Title">
+            </div>
         </div>
 
-        <div>
-            <label for="description">Description</label>
+        <div class="field">
+            <label class="label" for="description">Description</label>
 
-            <textarea name="description"></textarea>
+            <div class="control">
+                <textarea name="description" class="textarea"></textarea>
+            </div>
         </div>
 
-        <div>
-            <button type="submit">Create Project</button>
+        <div class="field">
+            <div class="control">
+                <button type="submit" class="button is-link">Create Project</button>
+                <a href="/projects">Cancel</a>
+            </div>
         </div>
     </form>
-</body>
-</html>
+@endsection
