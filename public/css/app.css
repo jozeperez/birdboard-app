@@ -623,6 +623,11 @@ video {
   }
 }
 
+.section {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
 .button {
   --bg-opacity: 1;
   background-color: #47cdff;
@@ -638,6 +643,15 @@ video {
   padding-left: 1.25rem;
   padding-right: 1.25rem;
   box-shadow: 0 2px 7px 0 #b0eaff;
+}
+
+.card {
+  --bg-opacity: 1;
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, var(--bg-opacity));
+  padding: 1.25rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.08);
 }
 
 .space-y-0 > :not(template) ~ :not(template) {
