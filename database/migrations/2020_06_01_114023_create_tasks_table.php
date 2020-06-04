@@ -17,6 +17,7 @@ class CreateTasksTable extends Migration
             $table->id();
             $table->foreignId('project_id');
             $table->text('body');
+            $table->boolean('completed')->default(false);
             $table->timestamps();
 
             $table->foreign('project_id')
