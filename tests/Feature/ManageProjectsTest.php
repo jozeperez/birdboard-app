@@ -31,7 +31,8 @@ class ProjectsTest extends TestCase
 
         $attributes = [
             'title'       => $this->faker->sentence,
-            'description' => $this->faker->paragraph,
+            'description' => $this->faker->sentence,
+            'notes'       => 'General notes here.'
         ];
 
         $response = $this->post('/projects', $attributes);
@@ -42,7 +43,28 @@ class ProjectsTest extends TestCase
 
         $this->assertDatabaseHas('projects', $attributes);
 
-        $this->get('/projects')->assertSee($attributes['title']);
+        $this->get($project->path())
+            ->assertSee($attributes['title'])
+            ->assertSee($attributes['description'])
+            ->assertSee($attributes['notes']);
+    }
+
+    public function test_a_user_can_update_a_project()
+    {
+        $this->signIn();
+
+        $this->withoutExceptionHandling();
+
+        $project = factory('App\Project')->create();
+
+        $changeAttributes = [
+            'notes' => 'General notes here. New note here.'
+        ];
+
+        $this->patch($project->path(), $changeAttributes)
+            ->assertRedirect($project->path());
+
+        $this->assertDatabaseHas('projects', $changeAttributes);
     }
 
     public function test_an_authenticated_user_cannot_view_projects_of_others()
