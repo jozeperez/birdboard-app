@@ -68,6 +68,7 @@
                         @csrf
 
                         <textarea
+                            name="notes"
                             class="card w-full mb-4"
                             style="min-height: 200px"
                             placeholder="Want to jot down some notes?"

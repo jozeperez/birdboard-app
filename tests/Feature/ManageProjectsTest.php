@@ -78,6 +78,17 @@ class ProjectsTest extends TestCase
         $this->get($project->path())->assertStatus(403);
     }
 
+    public function test_an_authenticated_user_cannot_update_projects_of_others()
+    {
+        $notUs = factory('App\User')->create();
+
+        $this->signIn();
+
+        $project = factory('App\Project')->create(['owner_id' => $notUs->id]);
+
+        $this->patch($project->path(), [])->assertStatus(403);
+    }
+
     public function test_a_user_can_view_their_project()
     {
         $this->withoutExceptionHandling();
