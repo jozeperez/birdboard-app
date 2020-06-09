@@ -12,7 +12,7 @@
                 </a> / {{ $project->title }}
             </p>
 
-            <a href="{{ route('project.create') }}" class="button">Add Project</a>
+            <a href="{{ $project->path() . '/edit' }}" class="button">Edit Project</a>
         </div>
     </header>
 
