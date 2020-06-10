@@ -68,6 +68,18 @@ class ProjectsTest extends TestCase
         $this->assertDatabaseHas('projects', $changeAttributes);
     }
 
+    public function test_a_user_can_update_a_projects_general_notes()
+    {
+        $project = ProjectFactory::create();
+
+        $this->actingAs($project->owner)
+             ->patch($project->path(), $changeAttributes = ['notes' => 'General notes here. New note here.'])
+             ->assertRedirect($project->path())
+             ->assertStatus(302);
+
+        $this->assertDatabaseHas('projects', $changeAttributes);
+    }
+
     public function test_an_authenticated_user_cannot_view_projects_of_others()
     {
         $notUs = factory('App\User')->create();
