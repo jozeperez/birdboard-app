@@ -15,15 +15,6 @@ class Task extends Model
         'completed' => 'boolean'
     ];
 
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::created(function($task) {
-            $task->project->recordActivity('created_task');
-        });
-    }
-
     public function project()
     {
         return $this->belongsTo(Project::class);
