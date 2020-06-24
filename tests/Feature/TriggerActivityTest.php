@@ -21,11 +21,21 @@ class TriggerActivityTest extends TestCase
     public function test_updating_a_project()
     {
         $project = ProjectFactory::create();
+        $originalTitle = $project->title;
 
         $project->update(['title' => 'changed']);
 
         $this->assertCount(2, $project->activity);
-        $this->assertEquals('updated', $project->activity->last()->description);
+
+        tap($project->activity->last(), function ($activity) use ($originalTitle) {
+            $this->assertEquals('updated', $activity->description);
+
+            $expected = [
+                'before' => ['title' => $originalTitle],
+                'after'  => ['title' => 'changed']
+            ];
+            $this->assertEquals($expected, $activity->changes);
+        });
     }
 
     public function test_creating_a_new_task()

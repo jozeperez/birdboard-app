@@ -3,10 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 
 class Project extends Model
 {
     protected $guarded = [];
+
+    public $old = [];
 
     public function path()
     {
@@ -35,6 +38,15 @@ class Project extends Model
 
     public function recordActivity($description)
     {
-        $this->activity()->create(compact('description'));
+        $old = Arr::except($this->old, ['created_at', 'updated_at']);
+        $new = Arr::except($this->getAttributes(), ['created_at', 'updated_at']);
+
+        $this->activity()->create([
+            'description' => $description,
+            'changes'     => [
+                'before' => array_diff($old, $new),
+                'after'  => array_diff($new, $old)
+            ]
+        ]);
     }
 }
