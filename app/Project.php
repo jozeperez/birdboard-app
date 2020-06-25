@@ -38,15 +38,19 @@ class Project extends Model
 
     public function recordActivity($description)
     {
-        $old = Arr::except($this->old, ['created_at', 'updated_at']);
-        $new = Arr::except($this->getAttributes(), ['created_at', 'updated_at']);
-
         $this->activity()->create([
             'description' => $description,
-            'changes'     => [
-                'before' => array_diff($old, $new),
-                'after'  => array_diff($new, $old)
-            ]
+            'changes'     => $this->activityChanges($description)
         ]);
+    }
+
+    protected function activityChanges($description)
+    {
+        if ($description === 'updated') {
+            return [
+                'before' => Arr::except(array_diff($this->old, $this->getAttributes()), ['created_at', 'updated_at']),
+                'after'  => Arr::except($this->getChanges(), ['created_at', 'updated_at'])
+            ];
+        }
     }
 }
