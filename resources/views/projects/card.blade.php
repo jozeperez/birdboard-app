@@ -6,4 +6,12 @@
     </h3>
 
     <div class="text-gray-500">{{ Str::limit($project->description, 150) }}</div>
+
+    <footer>
+        <form method="POST" action="{{ $project->path() }}" class="text-right bottom-0">
+            @method('DELETE')
+            @csrf
+            <button type="submit" class="text-xs">Delete</button>
+        </form>
+    </footer>
 </div>

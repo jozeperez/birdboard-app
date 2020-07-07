@@ -5,7 +5,7 @@
         <div class="flex justify-between items-end w-full">
             <h2 class="text-gray-500 text-sm">My Projects</h2>
 
-            <a href="{{ route('project.create') }}" class="button">Add Project</a>
+            <a href="/projects/create" class="button">Add Project</a>
         </div>
     </header>
 

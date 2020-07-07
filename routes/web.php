@@ -18,12 +18,7 @@ Route::get('/', function () {
 });
 
 Route::group(['middleware' => 'auth'], function() {
-    Route::get('/projects', 'ProjectsController@index')->name('project.dashboard');
-    Route::get('/projects/create', 'ProjectsController@create')->name('project.create');
-    Route::get('/projects/{project}', 'ProjectsController@show');
-    Route::get('/projects/{project}/edit', 'ProjectsController@edit');
-    Route::patch('/projects/{project}', 'ProjectsController@update');
-    Route::post('/projects', 'ProjectsController@store');
+    Route::resource('projects', 'ProjectsController');
 
     Route::post('/projects/{project}/tasks', 'ProjectTasksController@store')->name('task.create');
     Route::patch('/projects/{project}/tasks/{task}', 'ProjectTasksController@update')->name('task.update');
