@@ -5,7 +5,7 @@
         <div class="flex justify-between items-end w-full">
             <p class="text-gray-500 text-sm">
                 <a
-                    href="{{ route('project.dashboard') }}"
+                    href="/projects"
                     class="text-gray-500 text-sm no-underline"
                 >
                     My Projects
